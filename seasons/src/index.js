@@ -12,25 +12,17 @@ import ReactDOM  from 'react-dom';
 
 // Class component
 class App extends React.Component{
- constructor(props) {
-    super(props);
 
-    // This is the only time we do direct assignment to this.state
-    this.state = { lat:null, errorMessage: '' };
+        // This is the only time we do direct assignment to this.state
+        state = { lat:null, errorMessage: '' };
 
+ // It's best to place data loading items inside the componentDidMount method
+ componentDidMount() {
     window.navigator.geolocation.getCurrentPosition(
-        (position) => {
-            //we called setState
-            this.setState({ lat: position.coords.latitude });
-             //Never do:  this.state.lat = position.coords.latitude
-        },
-        (err) => {
-            //console.log(err)
-            this.setState({ errorMessage: err.message });
-        }
+        (position) => this.setState({ lat: position.coords.latitude }),
+        (err) => this.setState({ errorMessage: err.message })
     );
  }
-
     render() {
         // return ( 
         // <div>
