@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM  from 'react-dom';
 import SeasonDisplay from './SeasonDisplay';
+import Loader from './Loader';
 
 //Functional component
 // const App = () => {
@@ -25,13 +26,7 @@ class App extends React.Component{
     );
  }
     render() {
-        // return ( 
-        // <div>
-        //     Latitude: {this.state.lat}
-        //     <br/>
-        //     Error: {this.state.errorMessage}
-        //      </div>
-        // );
+    
     // Conditional statement for when the positionn, error message or loading should display
     if(this.state.errorMessage && !this.state.lat) {
         return <div>Error: {this.state.errorMessage} </div>
@@ -41,7 +36,7 @@ class App extends React.Component{
         return <SeasonDisplay lat={this.state.lat} />
     }
 
-    return <div>Loading!</div>
+    return <Loader message = "Please accept location request"/>;
     }
 } 
 
