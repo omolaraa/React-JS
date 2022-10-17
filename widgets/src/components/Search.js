@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 
 const Search = () => {
-    const [term, setTerm] = useState('');
+    const [term, setTerm] = useState('programming');
     const [results, setResults] = useState([]);
+    console.log(results);
 
     useEffect(() => {
         const search = async () => {
@@ -16,10 +17,28 @@ const Search = () => {
                     srsearch: term
                 },
             });
-            setResults(data);
+            setResults(data.query.search);
         };
+
+        // Alternative to initializing term with 'programming'
+        // search() runs only when term exists:
+
+        // if(term){
+        //     search();
+        // }
         search();
     },[term])
+
+    const renderedResults = results.map(result => {
+        return(
+            <div key={result.pageid} className="item">
+                <div className="content">
+                    <div className="header">{result.title}</div>
+                    <span dangerouslySetInnerHTML={{__html: result.snippet}}></span>
+                </div>
+            </div>
+        )
+    })
     return(
         <div>
             <div className="ui form">
@@ -32,6 +51,7 @@ const Search = () => {
                      />
                 </div>
             </div>
+            <div className="ui celled list">{renderedResults}</div>
         </div>
     )
 }
